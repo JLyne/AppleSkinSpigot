@@ -9,11 +9,9 @@ import java.util.UUID;
 
 public class SyncTask extends BukkitRunnable {
 
-    private final float MINIMUM_EXHAUSTION_CHANGE_THRESHOLD = 0.01F;
-
-    private AppleSkinSpigotPlugin appleSkinSpigotPlugin;
-    private Map<UUID, Float> previousSaturationLevels;
-    private Map<UUID, Float> previousExhaustionLevels;
+	private final AppleSkinSpigotPlugin appleSkinSpigotPlugin;
+    private final Map<UUID, Float> previousSaturationLevels;
+    private final Map<UUID, Float> previousExhaustionLevels;
 
     SyncTask(AppleSkinSpigotPlugin appleSkinSpigotPlugin) {
         this.appleSkinSpigotPlugin = appleSkinSpigotPlugin;
@@ -38,7 +36,8 @@ public class SyncTask extends BukkitRunnable {
 
         float exhaustion = player.getExhaustion();
         Float previousExhaustion = previousExhaustionLevels.get(player.getUniqueId());
-        if(previousExhaustion == null || Math.abs(exhaustion - previousExhaustion) >= MINIMUM_EXHAUSTION_CHANGE_THRESHOLD) {
+		float MINIMUM_EXHAUSTION_CHANGE_THRESHOLD = 0.01F;
+		if(previousExhaustion == null || Math.abs(exhaustion - previousExhaustion) >= MINIMUM_EXHAUSTION_CHANGE_THRESHOLD) {
             player.sendPluginMessage(appleSkinSpigotPlugin, AppleSkinSpigotPlugin.EXHAUSTION_KEY, ByteBuffer.allocate(Float.BYTES).putFloat(exhaustion).array());
             previousExhaustionLevels.put(player.getUniqueId(), exhaustion);
         }

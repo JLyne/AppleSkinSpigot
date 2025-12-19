@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class LoginListener implements Listener {
 
-    private SyncTask syncTask;
+    private final SyncTask syncTask;
 
     LoginListener(SyncTask syncTask) {
         this.syncTask = syncTask;
